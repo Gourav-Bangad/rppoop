@@ -18,7 +18,7 @@ class Register(models.Model):
     name = models.CharField(max_length=122)
     email = models.CharField(max_length=122)
     password = models.CharField(max_length=20)
-    date = models.DateField()
+    # date = models.DateField()
 
     def __str__(self):
         return self.name

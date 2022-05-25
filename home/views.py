@@ -26,16 +26,13 @@ def register(request):
     print(request.method)
     if request.method == "POST":
         name = request.POST['name']
-        print("Hi1")
-        print(name)
-        print("Hi2")
-        print(1)
+       
         email = request.POST['email']
        # print[email]
-        print(1)
+        
         password = request.POST['password']
         #printpassword)
-        print(1)
+
         password2 = request.POST['password2']
         if password == password2 :
             if User.objects.filter(email=email).exists():
