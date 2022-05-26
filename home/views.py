@@ -1,10 +1,8 @@
-from ast import Name
-from email.mime import message
-import imp
-from cv2 import redirectError
 from django.shortcuts import redirect, render, HttpResponse
+
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User, auth
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse
 from datetime import datetime
 from home.models import Contact
@@ -23,11 +21,11 @@ def services(request):
     return render(request, 'services.html')
 
 def register(request):
-    print(request.method)
+    #print(request.method)
     if request.method == "POST":
-        name = request.POST['name']
-       
-        email = request.POST['email']
+        
+        name1 = request.POST['name1']
+        username = request.POST['username']
        # print[email]
         
         password = request.POST['password']
@@ -35,15 +33,16 @@ def register(request):
 
         password2 = request.POST['password2']
         if password == password2 :
-            if User.objects.filter(email=email).exists():
+            if User.objects.filter(username = username).exists():
                 messages.info(request,'Email already exist')
                 return redirect('/register')
             else :
-                user = Register(name = name,email =  email,password  = password)
+                user = User.objects.create_user(username,username,password)
                 user.save()
+                messages.info(request,'Registered Succesfully')
                 return redirect('/login')
         # return redirect('/login')
-        # messages.success(request, 'You have registered succesfully.')
+        # messages.success(request, 'You have registered succesfully.'
         else:
             messages.info(request,'Incorrect Password')
             return redirect('/register')
@@ -54,6 +53,24 @@ def register(request):
     # return render(request, 'register.html',{'form':form})
  
 def login(request):
+    if request.method == "POST":
+        loginemail = request.POST['loginemail']
+        loginpassword = request.POST['loginpassword']
+        print(loginemail)
+        print(loginpassword) 
+        user = authenticate(username = loginemail,password = loginpassword)
+        print(user)
+        if user is not None:
+            #print(2)
+            messages.info(request,'Succesfully logged in')
+           # login(request,user)
+            return redirect ('/')
+        else:
+           # print(1)
+            messages.info(request,'Invalid Login')
+            return redirect('/login')
+    else:
+        return render(request,'login.html')
     return render(request, 'login.html')
 
 def contact(request):
