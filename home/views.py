@@ -20,6 +20,12 @@ def about(request):
 def services(request):
     return render(request, 'services.html')
 
+def profile(request):
+    return render(request, 'profile.html') 
+
+def forms(request):
+    return render(request, 'forms.html') 
+
 def register(request):
     #print(request.method)
     if request.method == "POST":
@@ -45,7 +51,7 @@ def register(request):
         # messages.success(request, 'You have registered succesfully.'
         else:
             messages.info(request,'Incorrect Password')
-            return redirect('/register')
+            return redirect('/profile')
     else:
         return render(request, 'register.html') 
     
@@ -64,14 +70,14 @@ def login(request):
             #print(2)
             messages.info(request,'Succesfully logged in')
            # login(request,user)
-            return redirect ('/')
+            return redirect ('/forms')
         else:
            # print(1)
             messages.info(request,'Invalid Login')
             return redirect('/login')
     else:
         return render(request,'login.html')
-    return render(request, 'login.html')
+   # return render(request, 'login.html')
 
 def contact(request):
     print(request.method)
