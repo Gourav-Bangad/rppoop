@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Contact{% endblock title %}
+{% block title %}Events{% endblock title %}
 
 {% block body %}
 <section class="vh-100" style="background-color: #eee;">
@@ -12,17 +12,17 @@
               <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
   
-                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Contact us..</p>
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Enter Event Details..</p>
   
-                  <form method="POST" action="/contact" novalidate>
+                  <form method="POST" action="/events" novalidate>
                     {% csrf_token %}
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your Name">
+                            <label for="name">Enter College Name</label>
+                            <input type="text" class="form-control" id="name" name="collegename">
                         </div>
                         <div class="form-group">
-                          <label for="email">Email address</label>
-                          <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email">
+                            <label for="name">Enter Event Name</label>
+                            <input type="text" class="form-control" id="name" name="eventname">
                         </div>
                         <!-- <div class="form-group">
                             <label for="email">Email address</label>
@@ -30,14 +30,19 @@
                         </div> -->
 
                         <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="phone" class="form-control" id="phone" name="phone" placeholder="Enter Your Phone Number">
+                            <label for="name">Enter Date</label>
+                            <input type="date" class="form-control" id="name" name="date">
                         </div>      
                         
                         <div class="form-group">
                             <label for="desc">Description...</label>
                             <textarea class="form-control" id="desc" rows="3" name="desc"></textarea>
                         </div>
+
+                        <div class="form-group">
+                          <label class="form-label" for="customFile">Add photo</label>
+                          <input type="file" class="form-control" id="customFile" name="image"/>
+                      </div>
                         
                         <!-- <div class="form-group">
                             <label for="password">Password</label>
@@ -47,17 +52,10 @@
                           <label for="password">Confirm Password</label>
                           <input type="password" class="form-control" id="password" name="password2" >
                         </div> -->
-                        
+                       
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </form>
   
-                </div>
-                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-  
-                  <img src="/static/Contact.jpg"
-                    class="img-fluid" alt="Sample image">
-  
-                </div>
               </div>
             </div>
           </div>

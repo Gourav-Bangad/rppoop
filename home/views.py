@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse
 from datetime import datetime
-from home.models import Contact
+
+from numpy import imag
+from home.models import Contact ,Event
 from home.models import Register
 from django.contrib import messages
 
@@ -16,6 +18,9 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html') 
+
+def logout(request):
+    return render(request, 'login.html')
 
 def services(request):
     return render(request, 'services.html')
@@ -91,4 +96,17 @@ def contact(request):
         contact.save()
         messages.success(request, 'Your message has been sent!')
     return render(request, 'contact.html')
- 
+
+def events(request):
+    if request.method == "POST":
+        collegename = request.POST.get('collegename')
+        eventname = request.POST.get('eventname')
+        date = request.POST.get('date')
+        desc = request.POST.get('desc')
+        image = request.POST.get('image')
+        eventdetail = Event(collegename = collegename,eventname = eventname,date = date,desc = desc,image = image)
+        eventdetail.save()
+        messages.success(request, 'Event detail saved !!')
+        return redirect('/forms')
+    else:
+        return render(request,'events.html')
