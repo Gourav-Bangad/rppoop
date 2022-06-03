@@ -1,3 +1,5 @@
+from distutils.command.upload import upload
+from statistics import mode
 from django.db import models
 
 # makemigrations - create changes and store in a file 
@@ -22,4 +24,12 @@ class Register(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+class Event(models.Model):
+    collegename = models.CharField(max_length=122,default ="")
+    eventname = models.CharField(max_length=122,default ="")
+    date = models.DateField()
+    desc = models.TextField()
+    image = models.ImageField(upload_to ="home/media" )
+    def __str__(self):
+        return self.collegename
