@@ -1,3 +1,4 @@
+
 from distutils.command.upload import upload
 from statistics import mode
 from django.db import models
@@ -30,6 +31,6 @@ class Event(models.Model):
     eventname = models.CharField(max_length=122,default ="")
     date = models.DateField()
     desc = models.TextField()
-    image = models.ImageField(upload_to ="home/media" )
+    image = models.ImageField(upload_to ="home/images" ,default ="")
     def __str__(self):
         return self.collegename

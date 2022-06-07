@@ -73,8 +73,8 @@ def login(request):
         print(user)
         if user is not None:
             #print(2)
-           # login(request,user)
             messages.info(request,'Succesfully logged in')
+           # login(request,user)
             return redirect ('/forms')
         else:
            # print(1)
@@ -103,7 +103,7 @@ def events(request):
         eventname = request.POST.get('eventname')
         date = request.POST.get('date')
         desc = request.POST.get('desc')
-        image = request.FILE['image']
+        image = request.FILES['image']
         eventdetail = Event(collegename = collegename,eventname = eventname,date = date,desc = desc,image = image)
         eventdetail.save()
         messages.success(request, 'Event detail saved !!')
