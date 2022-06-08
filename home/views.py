@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from datetime import datetime
 
 from numpy import imag
-from home.models import Contact ,Event
+from home.models import Contact ,Event, Profile
 from home.models import Register
 from django.contrib import messages
 
@@ -26,7 +26,21 @@ def services(request):
     return render(request, 'services.html')
 
 def profile(request):
-    return render(request, 'profile.html') 
+    if request.method == "POST":
+        profilename = request.POST.get('profilename')
+        profileemail = request.POST.get('profileemail')
+        profilenumber = request.POST.get('profilenumber')
+        profilecollege = request.POST.get('profilecollege')
+        branch = request.POST.get('branch')
+        
+        profiledesc = request.POST.get('profiledesc')
+        profileimage = request.FILES['profileimage']
+        profiledetail = Profile(profilename = profilename,profileemail = profileemail,profilenumber = profilenumber,profilecollege = profilecollege,branch = branch,profiledesc = profiledesc,profileimage = profileimage)
+        profiledetail.save()
+        messages.success(request, 'Profile detail saved !!')
+        return redirect('/forms')
+    else:
+        return render(request,'profile.html')
 
 def forms(request):
     return render(request, 'forms.html') 
@@ -115,3 +129,8 @@ def allevents(request):
     events=Event.objects.all()
     context={"events":events}
     return render(request,'allevents.html',context)
+
+def profiledisplay(request):
+    profile=Profile.objects.all()
+    context={"profile":profile}
+    return render(request,'profiledisplay.html',context)

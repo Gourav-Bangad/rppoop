@@ -14,4 +14,5 @@ urlpatterns = [
     path("forms", views.forms, name='forms'),
     path("events", views.events, name='events'), 
     path("allevents", views.allevents, name='allevents'),
+    path("profiledisplay",views.profiledisplay,name='profiledisplay')
 ]

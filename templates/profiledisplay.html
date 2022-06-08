@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block body %}
+{% now "Y-m-d" as todays_date %}
+
+
+<style>
+
+
+</style>
+<div class="container">
+    <h1 style="text-align :center">Alumnis..</h1>
+
+    <div class="row">
+        <div class="h-25 d-inline-block">
+
+            <div class="col">
+
+                {%for item in profile%}
+
+
+                <div class="card mb-3" style="max-width: 100%; font-family:gothic">
+                    <div class="row g-0" style="width:100%">
+                        <div class="col-md-4">
+                            <img src="{{item.profileimage.url}}" class="rounded-start" alt="..." style="width: 100%;height: 100%">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title">{{item.profilename}}</h3>
+                                <hr>
+                                <p class="card-text">
+                                <h4>{{item.profilecollege}}</h4>
+                                </p>
+                                <p class="card-text">{{item.profilenumber}}</p>
+                                <p class="card-text">{{item.profileemail}}</p>
+                                <p class="card-text">{{item.branch}}</p>
+                                <p class="card-text">{{item.profiledesc}}</p>
+                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{%endblock body%}
