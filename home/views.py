@@ -110,3 +110,8 @@ def events(request):
         return redirect('/forms')
     else:
         return render(request,'events.html')
+
+def allevents(request):
+    events=Event.objects.all()
+    context={"events":events}
+    return render(request,'allevents.html',context)
