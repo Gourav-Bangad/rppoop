@@ -1,8 +1,9 @@
+from multiprocessing import context
 from django.shortcuts import redirect, render, HttpResponse
 
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.models import User,auth
+from django.contrib.auth import authenticate
 from django.http import HttpResponse
 from datetime import datetime
 
@@ -10,6 +11,12 @@ from numpy import imag
 from home.models import Contact ,Event, Profile
 from home.models import Register
 from django.contrib import messages
+from django.contrib.auth import logout
+from django.contrib.auth import login
+
+
+
+from .models import *
 
 # Create your views here.
 def index(request):
@@ -41,6 +48,7 @@ def profile(request):
         return redirect('/forms')
     else:
         return render(request,'profile.html')
+
 
 def forms(request):
     return render(request, 'forms.html') 
@@ -81,14 +89,15 @@ def login(request):
     if request.method == "POST":
         loginemail = request.POST['loginemail']
         loginpassword = request.POST['loginpassword']
-        print(loginemail)
-        print(loginpassword) 
+        #print(loginemail)
+        #print(loginpassword) 
         user = authenticate(username = loginemail,password = loginpassword)
-        print(user)
+        #print(user)
         if user is not None:
             #print(2)
             messages.info(request,'Succesfully logged in')
-           # login(request,user)
+             
+            auth.login(request,user)
             return redirect ('/forms')
         else:
            # print(1)
@@ -96,7 +105,13 @@ def login(request):
             return redirect('/login')
     else:
         return render(request,'login.html')
-   # return render(request, 'login.html')
+
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect("/")
+
 
 def contact(request):
     print(request.method)
@@ -126,11 +141,31 @@ def events(request):
         return render(request,'events.html')
 
 def allevents(request):
-    events=Event.objects.all()
+    
+    if request.method == "POST":
+         college_name = request.POST.get('clgname')
+         college_name_upper = college_name.upper()
+         events = Event.objects.filter(collegename=college_name_upper)
+         context={"events":events}
+         return render(request,'allevents.html',context)
+    events=Event.objects.order_by("-date")
     context={"events":events}
     return render(request,'allevents.html',context)
 
-def profiledisplay(request):
-    profile=Profile.objects.all()
-    context={"profile":profile}
-    return render(request,'profiledisplay.html',context)
+
+def allprofiles(request):
+    
+    if request.method == "POST":
+         college_name = request.POST.get('clgname')
+         college_name_upper = college_name.upper()
+         profiles = Profile.objects.filter(profilecollege=college_name_upper)
+         context={"profiles":profiles}
+         return render(request,'allprofiles.html',context)
+    profiles=Profile.objects.all()
+    context={"profiles":profiles}
+    return render(request,'allprofiles.html',context)
+    
+
+        
+    
+    

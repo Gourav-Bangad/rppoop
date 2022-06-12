@@ -14,6 +14,8 @@ from django.conf.urls.static import static
 import os
 from django.contrib.messages import constants as messages
 
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,7 +29,7 @@ SECRET_KEY = 'e+e#vq+j1^$m+ipl$m6n$&fk!k!ewtkoqe$4--!#tfvx&j5w#&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
