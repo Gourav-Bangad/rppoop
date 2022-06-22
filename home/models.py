@@ -27,6 +27,7 @@ class Register(models.Model):
         return self.name
 
 class Event(models.Model):
+    clubname = models.CharField(max_length=122,default ="")
     eventname = models.CharField(max_length=122,default ="")
     date = models.DateField()
     desc = models.TextField()

@@ -191,3 +191,13 @@ def eventlogin(request):
 
         
 
+def allregistrations(request):
+    
+    if request.method == "POST":
+         event_name = request.POST.get('eventname')
+         eventlogins = Eventlogin.objects.filter(eventreg=event_name)
+         context={"eventlogins":eventlogins}
+         return render(request,'allregistrations.html',context)
+    eventlogins=Eventlogin.objects.all()
+    context={"eventlogins":eventlogins}
+    return render(request,'allregistrations.html',context)
